@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brenex.pjm.mapper.EmailVerificationCodeMapper">
+    <resultMap type="EmailVerificationCode" id="emailVerificationCodeResultMap">
+        <result column="VERIFICATION_NO" property="verificationNo"/>
+        <result column="MEMBER_ID" property="memberId"/>
+        <result column="EMAIL" property="email"/>
+        <result column="CODE" property="code"/>
+        <result column="EXPIRED_TIME" property="expiredTime"/>
+        <result column="CREATED_TIME" property="createdTime"/>
+        <result column="USED" property="used"/>
+    </resultMap>
+    <insert id="insertVerificationInfo" parameterType="EmailVerificationCode">
+        INSERT INTO EMAIL_VERIFICATION_CODE (
+            MEMBER_ID,
+            EMAIL,
+            CODE,
+            EXPIRED_TIME,
+            CREATED_TIME
+        ) VALUES (
+            #{memberId},
+            #{email},
+            #{code},
+            #{expiredTime},
+            #{createdTime}
+        )
+    </insert>
+    <select id="verifyCode" resultMap="emailVerificationCodeResultMap">
+        SELECT *
+        FROM (
+            SELECT *
+            FROM EMAIL_VERIFICATION_CODE
+            WHERE MEMBER_ID = #{memberId}
+                AND EMAIL = #{email}
+                AND CODE = #{code}
+            ORDER BY CREATED_TIME DESC
+        )
+        WHERE ROWNUM = 1
+    </select>
+    <update id="updateCodeStatus">
+        UPDATE EMAIL_VERIFICATION_CODE
+        SET USED = 'Y'
+        WHERE VERIFICATION_NO = #{verificationNo}
+             AND USED = 'N'
+    </update>
+    <update id="disableOldCodes">
+        UPDATE EMAIL_VERIFICATION_CODE
+        SET USED = 'Y'
+        WHERE MEMBER_ID = #{memberId}
+        AND EMAIL = #{email}
+        AND USED = 'N'
+    </update>
+</mapper>

@@ -1,0 +1,56 @@
+/* Reset / Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #333;
+    background-color: #fff;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+ul, ol {
+    list-style: none;
+}
+button {
+    border: none;
+    border-radius: 5px;
+    background: none;
+    padding: 6px 14px;
+    cursor: pointer;
+}
+
+/*헤더*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e9c1e;
+    color: white;
+    padding: 15px 30px;
+}
+
+/*로그아웃 버튼*/
+header form {
+    margin: 0;
+}
+
+#logoutBtn {
+    background-color: white;
+    color: green;
+    border: 1px solid green;
+    padding: 6px 14px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+#logoutBtn:hover {
+    background-color: #11c311;
+    color: white;
+}
