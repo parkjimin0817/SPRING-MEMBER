@@ -20,5 +20,4 @@ public class LoginMember extends User {
 
     public int getMemberNo() { return memberNo; }
     public String getMemberRole() { return memberRole; }
-
 }

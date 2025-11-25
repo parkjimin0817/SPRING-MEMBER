@@ -30,46 +30,46 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, CustomAccessDeniedHandler customAccessDeniedHandler) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/", "/css/**", "/resources/**",
-                                "/member/logout",
-                                "/access-denied", "/session-expired"
-                        ).permitAll() //모두 사용 가능
-                        .requestMatchers("/member/login", "/member/api/checkId",
-                                         "/member/register", "/member/registerResult",
-                                         "/member/findPwd/**", "/member/api/findPwd/**").anonymous()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/member/**").hasAnyRole("MEMBER", "ADMIN")
-                        .anyRequest().authenticated()
-                )
-                .exceptionHandling( exception ->
-                        exception.accessDeniedHandler(customAccessDeniedHandler))
-                .formLogin(form -> form
-                        .loginPage("/")
-                        .loginProcessingUrl("/member/login")
-                        .usernameParameter("memberId")
-                        .passwordParameter("memberPwd")
-                        .successHandler(authSuccessHandler())
-                        .failureHandler(authFailureHandler())
-                        .permitAll()
-                )
-                .sessionManagement(session -> session
-                        //.invalidSessionUrl("/")
-                        .maximumSessions(1) //중복 로그인 방지
-                        .maxSessionsPreventsLogin(false) //중복 로그인 시 로그인 가능
-                        .expiredSessionStrategy( event -> {
-                            HttpServletResponse response = event.getResponse();
-                            response.sendRedirect("/session-expired");
-                        })
-                )
-                .logout(l -> l
-                        .logoutUrl("/member/logout")
-                        .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                );
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers(
+                            "/", "/css/**", "/resources/**",
+                            "/member/logout",
+                            "/access-denied", "/session-expired"
+                    ).permitAll() //모두 사용 가능
+                    .requestMatchers("/member/login", "/member/api/checkId",
+                                     "/member/register", "/member/registerResult",
+                                     "/member/findPwd/**", "/member/api/findPwd/**").anonymous()
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/member/**").hasAnyRole("MEMBER", "ADMIN")
+                    .anyRequest().authenticated()
+            )
+            .exceptionHandling( exception ->
+                    exception.accessDeniedHandler(customAccessDeniedHandler))
+            .formLogin(form -> form
+                    .loginPage("/")
+                    .loginProcessingUrl("/member/login")
+                    .usernameParameter("memberId")
+                    .passwordParameter("memberPwd")
+                    .successHandler(authSuccessHandler())
+                    .failureHandler(authFailureHandler())
+                    .permitAll()
+            )
+            .sessionManagement(session -> session
+                    //.invalidSessionUrl("/")
+                    .maximumSessions(1) //중복 로그인 방지
+                    .maxSessionsPreventsLogin(false) //중복 로그인 시 로그인 가능
+                    .expiredSessionStrategy( event -> {
+                        HttpServletResponse response = event.getResponse();
+                        response.sendRedirect("/session-expired");
+                    })
+            )
+            .logout(l -> l
+                    .logoutUrl("/member/logout")
+                    .logoutSuccessUrl("/")
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+            );
         return http.build();
     }
 

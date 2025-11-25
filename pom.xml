@@ -147,6 +147,7 @@
             <version>2.19.0</version>
         </dependency>
 
+        <!-- Java 8 날짜/시간(LocalDate, LocalDateTime) JSON 변환 지원 -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>

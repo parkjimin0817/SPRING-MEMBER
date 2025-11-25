@@ -249,6 +249,4 @@ public class MemberServiceImpl implements MemberService {
             throw new RuntimeException("비밀번호 변경 중 오류");
         }
     }
-
-
 }
