@@ -32,7 +32,7 @@ public class RootContext {
         dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
         dataSource.setUrl("jdbc:oracle:thin:@localhost:1521/XEPDB1");
         dataSource.setUsername("PJM2");
-        dataSource.setPassword("1234");
+        dataSource.setPassword("*");
         return dataSource;
     }
 
