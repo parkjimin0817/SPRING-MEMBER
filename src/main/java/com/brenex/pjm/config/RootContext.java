@@ -68,8 +68,8 @@ public class RootContext {
 
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
-        mailSender.setUsername("jim2025gg@gmail.com");
-        mailSender.setPassword("wqzi pnyc lewl kcyr");
+        mailSender.setUsername("*");
+        mailSender.setPassword("*");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
